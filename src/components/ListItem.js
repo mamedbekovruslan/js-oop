@@ -18,12 +18,12 @@ export class ListItem extends Component {
 
     this.$rootElement.appendChild(this.$button);
 
-    this.$rootElement.addEventListener("click", this.deleteItem.bind(this));
+    this.$button.addEventListener("click", () => this.deleteItem());
   }
 
-  deleteItem(event) {
-    console.log(this.props.donates);
-
-    console.log(event.target.parentNode.getAttribute("data-id"));
+  deleteItem() {
+    if (this.props.onDelete) {
+      this.props.onDelete(this.state.id);
+    }
   }
 }

@@ -2,7 +2,6 @@ import { Component } from "../core/Component";
 import { Form } from "./Form";
 import { List } from "./List";
 import { ListItem } from "./ListItem";
-
 export class App extends Component {
   setup(props) {
     this.state = { total: 0, donates: [] };
@@ -29,12 +28,37 @@ export class App extends Component {
   }
 
   onItemCreate(amount) {
-    const item = new ListItem({ amount: amount, donates: this.state.donates });
+    const item = new ListItem({
+      amount: amount,
+      onDelete: this.onItemDelete.bind(this),
+    });
 
     this.state.donates.push(item);
     this.donateList.addItem(item);
 
     this.state.total = this.state.total + Number(amount);
     this.$total.textContent = this.state.total;
+  }
+
+  onItemDelete(itemId) {
+    const deletedItem = this.state.donates.find(
+      (item) => item.state.id === itemId
+    );
+
+    if (deletedItem) {
+      this.state.total -= Number(deletedItem.state.amount);
+      this.$total.textContent = this.state.total;
+    }
+
+    this.state.donates = this.state.donates.filter(
+      (item) => item.state.id !== itemId
+    );
+
+    const element = this.donateList.$rootElement.querySelector(
+      `[data-id="${itemId}"]`
+    );
+    if (element) {
+      element.remove();
+    }
   }
 }
