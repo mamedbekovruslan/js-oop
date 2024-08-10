@@ -15,6 +15,7 @@ export class Form extends Component {
 
     this.$button = document.createElement("button");
     this.$button.className = "donate-form__submit-button";
+    this.$button.type = "submit";
     this.$button.textContent = "Задонатить";
 
     this.$label.appendChild(this.$input);
@@ -22,7 +23,7 @@ export class Form extends Component {
     this.$rootElement.appendChild(this.$label);
 
     this.$input.addEventListener("input", this.handleInput.bind(this));
-    this.$button.addEventListener("submit ", this.handleSubmit.bind(this));
+    this.$rootElement.addEventListener("submit", this.handleSubmit.bind(this));
   }
 
   get isValid() {
@@ -36,5 +37,13 @@ export class Form extends Component {
       : (this.$button.disabled = true);
   }
 
-  handleSubmit(event) {}
+  handleSubmit(event) {
+    event.preventDefault();
+
+    if (this.isValid) {
+      console.log(this.state.amount);
+      this.state.amount = "";
+      this.$input.value = "";
+    }
+  }
 }
