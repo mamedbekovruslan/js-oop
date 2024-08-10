@@ -29,7 +29,7 @@ export class App extends Component {
   }
 
   onItemCreate(amount) {
-    const item = new ListItem({ amount: amount });
+    const item = new ListItem({ amount: amount, donates: this.state.donates });
 
     this.state.donates.push(item);
     this.donateList.addItem(item);

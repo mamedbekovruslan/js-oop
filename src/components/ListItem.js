@@ -10,5 +10,20 @@ export class ListItem extends Component {
     this.$rootElement.textContent = `${moment(this.state.date).format(
       "DD/MM/YYYY, hh:mm:ss"
     )} - $${this.state.amount}`;
+    this.$rootElement.dataset.id = this.state.id;
+
+    this.$button = document.createElement("button");
+    this.$button.className = "delete-button";
+    this.$button.textContent = "Удалить";
+
+    this.$rootElement.appendChild(this.$button);
+
+    this.$rootElement.addEventListener("click", this.deleteItem.bind(this));
+  }
+
+  deleteItem(event) {
+    console.log(this.props.donates);
+
+    console.log(event.target.parentNode.getAttribute("data-id"));
   }
 }
