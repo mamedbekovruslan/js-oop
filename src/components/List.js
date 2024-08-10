@@ -14,10 +14,9 @@ export class List extends Component {
 
     this.$listContainer.appendChild(this.$h2);
     this.$rootElement.appendChild(this.$listContainer);
-    // ...
   }
 
   addItem(item) {
-    // ...
+    this.$listContainer.appendChild(item.$rootElement);
   }
 }

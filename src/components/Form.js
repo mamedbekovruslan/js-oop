@@ -41,7 +41,7 @@ export class Form extends Component {
     event.preventDefault();
 
     if (this.isValid) {
-      console.log(this.state.amount);
+      this.props.onSubmit(this.state.amount);
       this.state.amount = "";
       this.$input.value = "";
     }

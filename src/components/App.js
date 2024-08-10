@@ -9,29 +9,32 @@ export class App extends Component {
     this.$rootElement = document.createElement("div");
     this.$rootElement.className = "app";
 
-    // Как-то не очень
     this.$h1 = document.createElement("h1");
     this.$h1.className = "total-amount";
     this.$h1.textContent = "Итого: $ ";
-    // Как-то не очень
 
-    // Как-то не очень
     this.$total = document.createElement("span");
     this.$total.textContent = this.state.total;
 
-    // Как-то не очень
     this.$h1.appendChild(this.$total);
-    // Как-то не очень
 
     this.$rootElement.appendChild(this.$h1);
 
-    const donateForm = new Form();
+    const donateForm = new Form({ onSubmit: this.onItemCreate.bind(this) });
     this.$rootElement.appendChild(donateForm.$rootElement);
     const donateList = new List();
     this.$rootElement.appendChild(donateList.$rootElement);
+
+    this.donateList = donateList;
   }
 
   onItemCreate(amount) {
-    // ...
+    const item = new ListItem({ amount: amount });
+
+    this.state.donates.push(item);
+    this.donateList.addItem(item);
+
+    this.state.total = this.state.total + Number(amount);
+    this.$total.textContent = this.state.total;
   }
 }
